@@ -1,0 +1,33 @@
+:root {
+  --md-text-font: "Sarasa UI SC", "MiSans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --md-code-font: "Sarasa Mono SC", "JetBrains Mono", Consolas, monospace;
+}
+
+.md-typeset {
+  font-size: 0.78rem;
+  line-height: 1.85;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  letter-spacing: 0.01em;
+}
+
+.md-typeset h2 {
+  margin-top: 2.2em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* 文章流里每篇的字数/日期别太抢眼 */
+.md-post--excerpt .md-post__meta {
+  opacity: 0.75;
+}
+
+/* 桌面端正文别太宽，读着累 */
+@media screen and (min-width: 76.25em) {
+  .md-grid {
+    max-width: 68rem;
+  }
+}

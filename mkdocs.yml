@@ -1,0 +1,87 @@
+site_name: 硫酸铜的笔记本
+site_description: 规则说明与随笔
+site_url: https://liucuso4.github.io/blog/
+repo_url: https://github.com/LiuCuSO4/blog
+repo_name: LiuCuSO4/blog
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: 切到夜间
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: 切到日间
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+      separator: '[\s\u200b\-]'
+  - blog:
+      blog_dir: blog
+      post_dir: blog/posts
+      post_url_format: "{slug}"
+      categories: true
+      categories_toc: true
+      archive: true
+      draft: false
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+nav:
+  - 首页: index.md
+  - 规则说明:
+      - 规则说明/index.md
+      - 使用规则: 规则说明/使用规则.md
+      - 写作与整理约定: 规则说明/写作约定.md
+  - 随笔:
+      - blog/index.md
