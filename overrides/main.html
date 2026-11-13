@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <script>
+    // 在样式生效前先把背景套上，避免白闪
+    (function () {
+      try {
+        var raw = localStorage.getItem('dfy.blog.bg');
+        if (!raw) return;
+        var cfg = JSON.parse(raw);
+        if (!cfg || !cfg.value) return;
+        var el = document.documentElement;
+        el.style.setProperty('--dfy-bg', cfg.value);
+        el.style.setProperty('--dfy-blur', (cfg.blur || 0) + 'px');
+        el.style.setProperty('--dfy-veil-a', (cfg.veil == null ? 0.12 : cfg.veil));
+        el.classList.add('dfy-has-bg');
+      } catch (e) {}
+    })();
+  </script>
+{% endblock %}

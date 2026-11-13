@@ -5,3 +5,6 @@ __pycache__/
 .cache/
 .DS_Store
 Thumbs.db
+.github/workflows/deploy.yml
+logs/
+.deployed-sha

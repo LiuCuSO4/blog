@@ -8,6 +8,7 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   language: zh
+  custom_dir: overrides
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -40,6 +41,9 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/site.js
 
 plugins:
   - search:
@@ -85,3 +89,4 @@ nav:
       - 写作与整理约定: 规则说明/写作约定.md
   - 随笔:
       - blog/index.md
+  - 写文章: write.md

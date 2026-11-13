@@ -1,6 +1,16 @@
 :root {
   --md-text-font: "Sarasa UI SC", "MiSans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --md-code-font: "Sarasa Mono SC", "JetBrains Mono", Consolas, monospace;
+
+  /* 自定义背景：JS 会覆盖这几个变量 */
+  --dfy-bg: none;
+  --dfy-blur: 0px;
+  --dfy-veil-a: 0.12;
+  --dfy-veil-rgb: 255, 255, 255;
+}
+
+[data-md-color-scheme="slate"] {
+  --dfy-veil-rgb: 20, 22, 24;
 }
 
 .md-typeset {
@@ -30,4 +40,298 @@
   .md-grid {
     max-width: 68rem;
   }
+}
+
+/* ============ 自定义背景 ============ */
+
+html {
+  background-color: var(--md-default-bg-color);
+}
+
+body.dfy-has-bg,
+body.dfy-has-bg .md-container,
+body.dfy-has-bg .md-main,
+body.dfy-has-bg .md-content {
+  background-color: transparent;
+}
+
+body.dfy-has-bg::before {
+  content: "";
+  position: fixed;
+  inset: -2rem;
+  z-index: -2;
+  background: var(--dfy-bg) center / cover no-repeat;
+  filter: blur(var(--dfy-blur));
+  pointer-events: none;
+}
+
+/* 雾层：让正文压得住背景，又能透出一点颜色 */
+body.dfy-has-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(var(--dfy-veil-rgb), var(--dfy-veil-a));
+  pointer-events: none;
+}
+
+body.dfy-has-bg .md-header,
+body.dfy-has-bg .md-tabs {
+  background-color: var(--md-primary-fg-color);
+}
+
+/* 侧栏和抽屉也透一点 */
+body.dfy-has-bg .md-sidebar,
+body.dfy-has-bg .md-sidebar__inner,
+body.dfy-has-bg .md-sidebar__scrollwrap,
+body.dfy-has-bg .md-nav,
+body.dfy-has-bg .md-nav__title,
+body.dfy-has-bg .md-nav--primary .md-nav__title {
+  background-color: transparent;
+}
+
+body.dfy-has-bg .md-nav--secondary .md-nav__title {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ============ 背景设置面板 ============ */
+
+.dfy-bg-btn {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 40;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--md-primary-bg-color);
+  background: var(--md-primary-fg-color);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  font-size: 1.15rem;
+  line-height: 1;
+  opacity: 0.92;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.dfy-bg-btn:hover {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+.dfy-bg-panel {
+  position: fixed;
+  right: 1.1rem;
+  bottom: 4.1rem;
+  z-index: 41;
+  width: 19rem;
+  max-width: calc(100vw - 2.2rem);
+  padding: 1rem 1rem 0.9rem;
+  border-radius: 0.8rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  display: none;
+}
+
+.dfy-bg-panel[data-open="1"] {
+  display: block;
+}
+
+.dfy-bg-panel h3 {
+  margin: 0 0 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.dfy-swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+}
+
+.dfy-swatch {
+  height: 2.4rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.dfy-swatch[aria-pressed="true"] {
+  outline: 2px solid var(--md-primary-fg-color);
+  outline-offset: 1px;
+}
+
+.dfy-bg-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+}
+
+.dfy-bg-row label {
+  flex: 0 0 4.2rem;
+  opacity: 0.8;
+}
+
+.dfy-bg-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--md-primary-fg-color);
+}
+
+.dfy-bg-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.dfy-btn {
+  flex: 1;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.72rem;
+  border-radius: 0.45rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color);
+  cursor: pointer;
+}
+
+.dfy-btn:hover {
+  border-color: var(--md-primary-fg-color);
+}
+
+.dfy-btn--primary {
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  border-color: transparent;
+}
+
+.dfy-btn--primary:hover {
+  opacity: 0.9;
+}
+
+.dfy-hint {
+  margin: 0.55rem 0 0;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  opacity: 0.65;
+}
+
+/* ============ 写文章页 ============ */
+
+.dfy-write {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.dfy-field {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.dfy-field > span {
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+.dfy-write input[type="text"],
+.dfy-write input[type="date"],
+.dfy-write input[type="password"],
+.dfy-write select,
+.dfy-write textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.76rem;
+  font-family: var(--md-code-font);
+  color: var(--md-default-fg-color);
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+}
+
+.dfy-write textarea {
+  min-height: 22rem;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.dfy-write .dfy-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+@media screen and (max-width: 44em) {
+  .dfy-write .dfy-grid2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dfy-write-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dfy-write-bar .dfy-btn {
+  flex: 0 0 auto;
+  padding: 0.5rem 0.9rem;
+}
+
+.dfy-status {
+  font-size: 0.7rem;
+  opacity: 0.75;
+  min-height: 1.2em;
+}
+
+.dfy-status[data-kind="err"] {
+  color: #d33;
+  opacity: 1;
+}
+
+.dfy-status[data-kind="ok"] {
+  color: var(--md-primary-fg-color);
+  opacity: 1;
+}
+
+.dfy-preview {
+  border: 1px dashed var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  max-height: 30rem;
+  overflow: auto;
+}
+
+.dfy-preview[hidden] {
+  display: none;
+}
+
+.dfy-posts {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+}
+
+.dfy-posts button {
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 0.35rem;
+  padding: 0.3rem 0.45rem;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.dfy-posts button:hover {
+  border-color: var(--md-primary-fg-color);
 }
